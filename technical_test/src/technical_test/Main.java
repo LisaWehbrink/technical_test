@@ -6,12 +6,13 @@ public class Main {
 
 	
 	public static void main(String[] args) {
-		Request request = new Request("Dave");
 		RequestController controller = new RequestController();
 		
-		controller.fillRequest(request);
+		//Request request = controller.fillRequest();
 		
-		System.out.println(request.getPassengers());
+		Request request = new Request("dave", "1.23456,-5.6788", "1.235,6.789");
+		controller.sendRequest(request);
+		
 		
 	}
 }

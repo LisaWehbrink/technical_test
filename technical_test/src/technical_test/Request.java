@@ -1,74 +1,65 @@
 package technical_test;
 
+
 public class Request {
 	
-	private double pickupLatitude;
-	private double pickupLongitude;
-	private double dropoffLatitude;
-	private double dropoffLongitude;
+	private String pickup;
+	private String dropoff;
 	
 	private int passengers;
 	
 	private String supplier;
 	
-	public Request(String supplier) {
+	private String path;
+	
+	public Request(String supplier, String pickup, String dropoff) {
 		this.supplier = supplier;
+		this.pickup = pickup;
+		this.dropoff = dropoff;
+		parsePath();
 		
 	}
 	
-	public void setPickup(String input) {
-		double[] pickup = parseInput(input);
+	
+	
+	private void parsePath() {
+		String base = "https://techtest.rideways.com/" + supplier
+				+ "/?pickup={pickup}&dropoff={dropoff}";
 		
-		pickupLatitude = pickup[0];
-		pickupLongitude = pickup[1];
+		base = base.replace("{pickup}", pickup);
+		path = base.replace("{dropoff}", dropoff);		
 	}
 	
-	public void setDropoff(String input) {
-		double[] dropoff = parseInput(input);
-		
-		dropoffLatitude = dropoff[0];
-		dropoffLongitude = dropoff[1];
-	}
-	
-	private double[] parseInput(String input) {
-		double[] result = new double[2];
-		String[] values = input.split(",");
-		
-		result[0] = Double.parseDouble(values[0]);
-		result[1] = Double.parseDouble(values[1]);
-		
-		
-		return result;
-	}
 	
 	public void setPassengers(String passengers) {
 		this.passengers = Integer.parseInt(passengers);
 	}
 
 	
-	public double getPickupLongitude() {
-		return pickupLongitude;
+	
+	public String getPickup() {
+		return pickup;
 	}
 
-	public double getPickupLatitude() {
-		return pickupLatitude;
+
+
+	public String getDropoff() {
+		return dropoff;
 	}
 
-	public double getDropoffLatitude() {
-		return dropoffLatitude;
-	}
 
-	public double getDropoffLongitude() {
-		return dropoffLongitude;
-	}
-
+	
 	public String getSupplier() {
 		return supplier;
 	}
+
 
 	public int getPassengers() {
 		return passengers;
 	}
 
-	
+	public String getPath() {
+		return path;
+	}
+
 }
