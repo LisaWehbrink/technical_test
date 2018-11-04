@@ -1,4 +1,4 @@
-package part1;
+package controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,30 +12,35 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import model.RideRequest;
+import model.RideResult;
 
 
-
-
-public class RequestController {
-
+public class RideController {
+	
+	private RideRequest request;
+	private String pickup;
+	private String dropoff;
+	private int passengers;
+	
 	
 	public RideRequest fillRequest() {
 		BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
-		RideRequest request = null;
+		request = null;
 		
 		
 		try {
 			System.out.println("Please enter the desired pickup location.");
-			String pickup = inputReader.readLine();
+			pickup = inputReader.readLine();
 			
 			System.out.println("Please enter the desired dropoff location.");
-			String dropoff = inputReader.readLine();
+			dropoff = inputReader.readLine();
 			
-			request = new RideRequest (pickup, dropoff);
+			request = new RideRequest();
 			
 			System.out.println("Please enter the number of passengers.");
-			String passengers = inputReader.readLine();
-			request.setPassengers(passengers);
+			passengers = Integer.parseInt(inputReader.readLine());
+			
 			
 			inputReader.close();
 			
@@ -47,9 +52,9 @@ public class RequestController {
 	}
 	
 	
-	public void sendRequest(RideRequest request) {	
-		String[] suppliers = request.getSuppliers();
-		String path = request.getPath();
+	public void sendRequest() {	
+		String[] suppliers = new String[]{"dave", "eric", "jeff"};
+		String path = createPath(pickup, dropoff);
 		
 		for(int i = 0; i < suppliers.length; i++) {
 			String supplier = suppliers[i];
@@ -65,7 +70,7 @@ public class RequestController {
 				
 				String line;
 				while((line = reader.readLine()) != null) {
-					addOutput(line, request, supplier);
+					addOutput(line, supplier);
 				}
 							
 				
@@ -80,7 +85,19 @@ public class RequestController {
 		
 	}
 	
-	private void addOutput(String line, RideRequest request, String supplier) {
+	
+	private String createPath(String pickup, String dropoff) {
+		String base = "https://techtest.rideways.com/{supplier}"
+				+ "/?pickup={pickup}&dropoff={dropoff}";
+		
+		base = base.replace("{pickup}", pickup);
+		String path = base.replace("{dropoff}", dropoff);		
+		
+		return path;
+	}
+	
+	
+	private void addOutput(String line, String supplier) {
 		JSONObject json;
 		
 		try {
@@ -91,7 +108,7 @@ public class RequestController {
 			for(int i = 0; i < entries.length(); i++) {
 				JSONObject entry = entries.getJSONObject(i);
 				String type = entry.getString("car_type");
-				boolean fits = validateCarSize(type, request.getPassengers());
+				boolean fits = validateCarSize(type, passengers);
 				int price = entry.getInt("price");
 				
 				RideResult result = new RideResult(supplier, type, price);
@@ -121,6 +138,17 @@ public class RequestController {
 		
 		return false;
 			
+	}
+	
+	public RideRequest getRequest() {
+		return request;
+	}
+	
+	public void fillTestRequest(String pickup, String dropoff) {
+		this.pickup = pickup;
+		this.dropoff = dropoff;
+		this.passengers = 2;
+		request = new RideRequest();
 	}
 	
 

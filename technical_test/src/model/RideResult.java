@@ -1,4 +1,4 @@
-package part1;
+package model;
 
 public class RideResult {
 	
