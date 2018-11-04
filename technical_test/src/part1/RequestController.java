@@ -19,9 +19,9 @@ import org.json.JSONObject;
 public class RequestController {
 
 	
-	public Request fillRequest() {
+	public RideRequest fillRequest() {
 		BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
-		Request request = null;
+		RideRequest request = null;
 		
 		
 		try {
@@ -31,7 +31,7 @@ public class RequestController {
 			System.out.println("Please enter the desired dropoff location.");
 			String dropoff = inputReader.readLine();
 			
-			request = new Request (pickup, dropoff);
+			request = new RideRequest (pickup, dropoff);
 			
 			System.out.println("Please enter the number of passengers.");
 			String passengers = inputReader.readLine();
@@ -47,7 +47,7 @@ public class RequestController {
 	}
 	
 	
-	public void sendRequest(Request request) {	
+	public void sendRequest(RideRequest request) {	
 		String[] suppliers = request.getSuppliers();
 		String path = request.getPath();
 		
@@ -80,7 +80,7 @@ public class RequestController {
 		
 	}
 	
-	private void addOutput(String line, Request request, String supplier) {
+	private void addOutput(String line, RideRequest request, String supplier) {
 		JSONObject json;
 		
 		try {
@@ -94,7 +94,7 @@ public class RequestController {
 				boolean fits = validateCarSize(type, request.getPassengers());
 				int price = entry.getInt("price");
 				
-				Result result = new Result(supplier, type, price);
+				RideResult result = new RideResult(supplier, type, price);
 				if(fits)
 					request.addResult(result);
 			}

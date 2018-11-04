@@ -1,12 +1,12 @@
 package part1;
 
-public class Result {
+public class RideResult {
 	
 	private String supplier;
 	private String type;
 	private int price;
 	
-	public Result(String supplier, String type, int price) {
+	public RideResult(String supplier, String type, int price) {
 		this.supplier = supplier;
 		this.type = type;
 		this.price = price;
@@ -24,7 +24,7 @@ public class Result {
 		return price;
 	}
 	
-	public int compareTo(Result result) {
+	public int compareTo(RideResult result) {
 		if(this.price >= result.getPrice()) 
 			return -1;
 		if(this.price == result.getPrice())

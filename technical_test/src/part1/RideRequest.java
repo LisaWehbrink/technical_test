@@ -3,7 +3,9 @@ package part1;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Request {
+
+
+public class RideRequest {
 	
 	private String pickup;
 	private String dropoff;
@@ -13,9 +15,9 @@ public class Request {
 	
 	private String path;
 	
-	private List<Result> results;
+	private List<RideResult> results;
 	
-	public Request(String pickup, String dropoff) {
+	public RideRequest(String pickup, String dropoff) {
 		this.pickup = pickup;
 		this.dropoff = dropoff;
 		parsePath();
@@ -38,7 +40,7 @@ public class Request {
 		this.passengers = Integer.parseInt(passengers);
 	}
 	
-	public void addResult(Result result) {
+	public void addResult(RideResult result) {
 		if(results == null)
 			results = new ArrayList<>();
 		
@@ -46,8 +48,8 @@ public class Request {
 			results.add(result);
 	}
 	
-	private boolean isCheaper(Result result) {
-		for(Result r : results) {
+	private boolean isCheaper(RideResult result) {
+		for(RideResult r : results) {
 			if(r.getType().equals(result.getType())) {
 				if(r.getPrice() < result.getPrice()) {
 					return true;
@@ -85,7 +87,7 @@ public class Request {
 		return path;
 	}
 	
-	public List<Result> getResults() {
+	public List<RideResult> getResults() {
 		return results;
 	}
 
