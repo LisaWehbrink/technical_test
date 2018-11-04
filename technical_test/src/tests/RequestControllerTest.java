@@ -1,4 +1,4 @@
-package technical_test.tests;
+package tests;
 
 
 import java.util.HashSet;
@@ -8,9 +8,9 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import technical_test.Request;
-import technical_test.RequestController;
-import technical_test.Result;
+import part1.Request;
+import part1.RequestController;
+import part1.Result;
 
 class RequestControllerTest {
 	

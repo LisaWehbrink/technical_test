@@ -1,4 +1,4 @@
-package technical_test;
+package part1;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -28,9 +28,7 @@ public class Main {
 		
 		
 		for(Result r : results) {
-			String output = String.format("%s - %s - %d",
-					r.getType(), r.getSupplier(), r.getPrice());
-			System.out.println(output);
+			System.out.println(r.toString());
 		}
 		
 		

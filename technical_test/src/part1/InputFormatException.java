@@ -1,4 +1,4 @@
-package technical_test;
+package part1;
 
 public class InputFormatException extends Exception{
 	

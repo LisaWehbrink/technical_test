@@ -1,4 +1,4 @@
-package technical_test;
+package part1;
 
 public class Result {
 	
@@ -32,6 +32,11 @@ public class Result {
 		else 
 			return 1;
 		
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s - %s - %d", type, supplier, price);
 	}
 
 }
