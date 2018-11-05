@@ -72,5 +72,9 @@ public class RideResult {
 	public String toString() {
 		return String.format("%s - %s - %d", type, supplier, price);
 	}
+	
+	public String getSingleSupplierString() {
+		return String.format("%s - %d", type, price);
+	}
 
 }

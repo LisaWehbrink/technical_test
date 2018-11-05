@@ -33,7 +33,7 @@ public class RideController {
 	 * 
 	 * Get pickup / dropoff / passenger input
 	 */
-	public void fillRequest() {
+	public void fillRequest(boolean includePassengers) {
 		BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
 		request = null;
 		
@@ -44,9 +44,11 @@ public class RideController {
 			System.out.println("Please enter the desired dropoff location.");
 			dropoff = inputReader.readLine();
 			
-			System.out.println("Please enter the number of passengers.");
-			passengers = Integer.parseInt(inputReader.readLine());
-						
+			if(includePassengers) {
+				System.out.println("Please enter the number of passengers.");
+				passengers = Integer.parseInt(inputReader.readLine());
+			}
+				
 			inputReader.close();
 			
 		} catch (IOException e) {

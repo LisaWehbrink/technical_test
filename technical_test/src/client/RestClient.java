@@ -36,7 +36,7 @@ public class RestClient {
 		RideController controller = new RideController();
 		String[] suppliers = new String[]{"dave", "eric", "jeff"};
 			
-		controller.fillRequest();
+		controller.fillRequest(true);
 		controller.sendRequest(suppliers);
 		
 		return controller.getRequest();

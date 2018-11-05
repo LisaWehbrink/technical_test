@@ -9,19 +9,19 @@ import model.RideResult;
 /**
  * 
  * @author lisa
- *Run part 1
+ *
  */
-public class Part1Client {
-
+public class DavesClient {
+	
 	/**
 	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		RideController controller = new RideController();
-		String[] suppliers = new String[]{"dave", "eric", "jeff"};
+		String[] suppliers = new String[]{"dave"};
 		
-		controller.fillRequest(true);
+		controller.fillRequest(false);
 		controller.sendRequest(suppliers);
 		
 		RideRequest request = controller.getRequest();
@@ -35,7 +35,7 @@ public class Part1Client {
 		}
 		
 		for(RideResult result : results) {
-			System.out.println(result.toString());
+			System.out.println(result.getSingleSupplierString());
 		}
 		
 		
