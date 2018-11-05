@@ -1,4 +1,4 @@
-######BookingGo Technical Test Submission
+#BookingGo Technical Test Submission
 
 Setup
 
