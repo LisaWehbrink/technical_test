@@ -1,22 +1,28 @@
-#BookingGo Technical Test Submission
+## BookingGo Technical Test Submission
 
-Setup
+# Setup
 
-Include any instructions to build you code, including any dependencies.
+Option 1:
+1) Download .jar files
 
-If a specific IDE is required to run the code specify the IDE and version required.
+Option 2:
+1) Import Github project into Eclipse from URI.
 
-Give any other information you think is necessary to get things up and running...
-Part 1
+# Part 1
+Run Part1Client in client package (or RequestControllerTest in tests) from Eclipse
+or
+java - jar <filename part 1>.jar
 
-Console application to print the search results for Dave's Taxis
 
-Specify command to run the application
+# Part 2
+Eclipse:
+1) Run RestClient from client package
+2) provide input in Eclipse console & check localhost:8080/ride
+or
+2) run RestControllerTest
 
-Console application to filter by number of passengers
-
-Specify command to run the application
-
-Part 2
-
-Specify how to start the API and provide a sample request
+Jar:
+1) run jar with java -jar <filename>.jar
+2) provide input in console
+3) check localhost:8080/ride
+  
