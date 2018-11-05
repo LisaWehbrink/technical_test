@@ -9,20 +9,35 @@ import controller.RideController;
 import controller.RideRestController;
 import model.RideRequest;
 
+/**
+ * 
+ * @author lisa
+ * Spring application for part 2 (Rest API)
+ */
 @SpringBootApplication
 @ComponentScan(basePackageClasses = RideRestController.class)
 public class RestClient {
+	
+	/**
+	 * 
+	 * @param args
+	 */
 	 public static void main(String[] args) {
 		 	
 	        SpringApplication.run(RestClient.class, args);
 	    }
 	 
+	 /**
+	  * 
+	  * @return request
+	  */
 	 @Bean
 	 public RideRequest createRequest() {
-		 RideController controller = new RideController();
+		RideController controller = new RideController();
+		String[] suppliers = new String[]{"dave", "eric", "jeff"};
 			
 		controller.fillRequest();
-		controller.sendRequest();
+		controller.sendRequest(suppliers);
 		
 		return controller.getRequest();
 	 }

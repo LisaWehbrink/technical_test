@@ -15,19 +15,27 @@ import org.json.JSONObject;
 import model.RideRequest;
 import model.RideResult;
 
-
+/**
+ * 
+ * @author lisa
+ * Retrieving request results
+ */
 public class RideController {
 	
 	private RideRequest request;
 	private String pickup;
 	private String dropoff;
 	private int passengers;
+	private boolean connectionErrors;
 	
 	
-	public RideRequest fillRequest() {
+	/**
+	 * 
+	 * Get pickup / dropoff / passenger input
+	 */
+	public void fillRequest() {
 		BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
 		request = null;
-		
 		
 		try {
 			System.out.println("Please enter the desired pickup location.");
@@ -36,25 +44,39 @@ public class RideController {
 			System.out.println("Please enter the desired dropoff location.");
 			dropoff = inputReader.readLine();
 			
-			request = new RideRequest();
-			
 			System.out.println("Please enter the number of passengers.");
 			passengers = Integer.parseInt(inputReader.readLine());
-			
-			
+						
 			inputReader.close();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
-		} 
-		return request;
-	
+		}
+		
+		this.request = new RideRequest();
 	}
 	
 	
-	public void sendRequest() {	
-		String[] suppliers = new String[]{"dave", "eric", "jeff"};
+	/**
+	 * For test cases to avoid manual input
+	 * @param pickup
+	 * @param dropoff
+	 */
+	public void fillTestRequest(String pickup, String dropoff) {
+		this.pickup = pickup;
+		this.dropoff = dropoff;
+		this.passengers = 2;
+		
+		request = new RideRequest();
+	}
+	
+	
+	/**
+	 * Get results from REST API
+	 */
+	public void sendRequest(String[] suppliers) {	
 		String path = createPath(pickup, dropoff);
+		this.connectionErrors = false;
 		
 		for(int i = 0; i < suppliers.length; i++) {
 			String supplier = suppliers[i];
@@ -63,10 +85,11 @@ public class RideController {
 			try {
 				URL url = new URL(path);
 				URLConnection connection = url.openConnection();
-				connection.setConnectTimeout(10000);
+				connection.setConnectTimeout(2000);
 				connection.setReadTimeout(2000);
 				
-				BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				BufferedReader reader = 
+						new BufferedReader(new InputStreamReader(connection.getInputStream()));
 				
 				String line;
 				while((line = reader.readLine()) != null) {
@@ -76,45 +99,56 @@ public class RideController {
 				
 			} catch (SocketTimeoutException timeout) {
 				//to skip rest of code when response time is too long
-				System.out.println("The results list may be incomplete due to abnormal response times.");
 			} catch (IOException e) {
 				//for broken API
-				System.out.println("The results list may be incomplete due to connection errors.");
+				connectionErrors = true;
 			}
 		}
-		
 	}
 	
 	
+	/**
+	 * Create path for request to REST API
+	 * @param pickup
+	 * @param dropoff
+	 * @return path
+	 */
 	private String createPath(String pickup, String dropoff) {
-		String base = "https://techtest.rideways.com/{supplier}"
+		String path = "https://techtest.rideways.com/{supplier}"
 				+ "/?pickup={pickup}&dropoff={dropoff}";
 		
-		base = base.replace("{pickup}", pickup);
-		String path = base.replace("{dropoff}", dropoff);		
+		path = path.replace("{pickup}", pickup);
+		path = path.replace("{dropoff}", dropoff);		
 		
 		return path;
 	}
 	
 	
+	/**
+	 * Parse output JSON, create Result and add to Request
+	 * @param line
+	 * @param supplier
+	 */
 	private void addOutput(String line, String supplier) {
 		JSONObject json;
 		
 		try {
 			json = new JSONObject(line);
-		
+			
 			JSONArray entries = json.getJSONArray("options");
 			
 			for(int i = 0; i < entries.length(); i++) {
 				JSONObject entry = entries.getJSONObject(i);
+				
 				String type = entry.getString("car_type");
-				boolean fits = validateCarSize(type, passengers);
 				int price = entry.getInt("price");
 				
-				RideResult result = new RideResult(supplier, type, price);
-				if(fits)
+				if(validateCarSize(type, passengers)) {
+					RideResult result = new RideResult(supplier, type, price);
 					request.addResult(result);
+				}
 			}
+			request.sortResults();
 			
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -122,12 +156,18 @@ public class RideController {
 	}
 	
 	
+	/**
+	 * 
+	 * @param type
+	 * @param passengers
+	 * @return true / false 
+	 * depending on whether type fits passengers
+	 */
 	private boolean validateCarSize(String type, int passengers) {
 		if(passengers <= 4)
 			return true;
 		
-		boolean six = type.equals("PEOPLE_CARRIER") 
-					|| type.equals("LUXURY_PEOPLE_CARRIER");
+		boolean six = type.equals("PEOPLE_CARRIER") || type.equals("LUXURY_PEOPLE_CARRIER");
 		boolean sixteen = type.equals("MINIBUS");
 		
 		if(passengers <= 6 && six || sixteen) 
@@ -135,21 +175,27 @@ public class RideController {
 		if(passengers <= 16 && sixteen)
 			return true;
 		
-		
-		return false;
-			
+		return false;	
 	}
 	
+	
+	/**
+	 * 
+	 * @return request
+	 */
 	public RideRequest getRequest() {
 		return request;
 	}
 	
-	public void fillTestRequest(String pickup, String dropoff) {
-		this.pickup = pickup;
-		this.dropoff = dropoff;
-		this.passengers = 2;
-		request = new RideRequest();
+	
+	/**
+	 * 
+	 * @return connectionErrors
+	 */
+	public boolean getConnectionErrors() {
+		return connectionErrors;
 	}
+	
 	
 
 }

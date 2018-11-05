@@ -12,18 +12,29 @@ import controller.RideController;
 import model.RideRequest;
 import model.RideResult;
 
+
+/**Testing
+ * 
+ * @author lisa
+ *
+ */
 class RequestControllerTest {
 	
 	private RideRequest request;
 	private RideController controller;
 	
+	
 	@BeforeEach
 	public void createSampleRequest() {
 		controller = new RideController();
+		String[] suppliers = new String[]{"dave", "eric", "jeff"};
+		
 		controller.fillTestRequest("51.470020,-0.454295", "51.50949,-0.59541");
-		controller.sendRequest();
+		controller.sendRequest(suppliers);
+		
 		request = controller.getRequest();
 	}
+	
 	
 	@Test
 	void outputExists() {
@@ -33,12 +44,14 @@ class RequestControllerTest {
 		assert(results != null);
 	}
 
+	
 	@Test
 	void duplicateOutput() {
 		List<RideResult> results = request.getResults();
 		
 		Assert.assertEquals(new HashSet<>(results).size(), results.size());
 	}
+	
 	
 	@Test
 	void duplicateType() {
