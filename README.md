@@ -1,6 +1,6 @@
-## BookingGo Technical Test Submission
+# BookingGo Technical Test Submission
 
-# Setup
+## Setup
 
 Option 1:
 1) Download .jar files
@@ -8,13 +8,13 @@ Option 1:
 Option 2:
 1) Import Github project into Eclipse from URI.
 
-# Part 1
+## Part 1
 Run Part1Client in client package (or RequestControllerTest in tests) from Eclipse
 or
 java - jar <filename part 1>.jar
 
 
-# Part 2
+## Part 2
 Eclipse:
 1) Run RestClient from client package
 2) provide input in Eclipse console & check localhost:8080/ride
