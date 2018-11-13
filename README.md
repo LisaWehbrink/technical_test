@@ -18,12 +18,12 @@ Import Github project into Eclipse from URI, as new project.
 
 ### Console application for Dave's Taxis
 1) navigate to folder holding relevant jar file
-2) run java -jar technical_test_part1_DaveOnly.jar
+2) run the following command: java -jar technical_test_part1_DaveOnly.jar
 3) provide input
 
 ### Console application with passengers and multiple suppliers
 1) navigate to folder holding relevant jar file
-2) run java -jar technical_test_part1.jar
+2) run the following command: java -jar technical_test_part1.jar
 3) provide input
 
 
@@ -37,7 +37,7 @@ or
 2) run RestControllerTest
 
 ### Jar / Console
-1) run jar with java -jar technical_test_part2.jar
+1) run the following command from the containing folder: jar with java -jar technical_test_part2.jar
 2) provide input through console
 3) check localhost:8080/ride
  
