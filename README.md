@@ -10,7 +10,7 @@
 2) Have Java (up-to-date version) installed and the java commands available
 3) When using Windows, might require running cmd as administrator
 4) In any case: start cmd / terminal / console, navigate to folder containing jar files
-5) Input format has to be as mentioned in brief, x.xx,y.yyyy for pickup / dropoff, a whole number > 0 for passengers
+5) Input format has to be as mentioned in brief, x.xx,y.yyyy for pickup / dropoff (no spaces), a whole number > 0 for passengers
 
 ### Option 2:
 Import Github project into Eclipse from URI, as new project.
