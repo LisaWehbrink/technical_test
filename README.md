@@ -7,7 +7,10 @@
       - technical_test_part1_DaveOnly.jar
       - technical_test_part1.jar
       - technical_test_part2.jar
-2) When using Windows, might require running cmd as administrator
+2) Have Java (up-to-date version) installed and the java commands available
+3) When using Windows, might require running cmd as administrator
+4) In any case: start cmd / terminal / console, navigate to folder containing jar files
+5) Input format has to be as mentioned in brief, x.xx,y.yyyy for pickup / dropoff, a whole number > 0 for passengers
 
 ### Option 2:
 Import Github project into Eclipse from URI, as new project.
@@ -17,14 +20,12 @@ Import Github project into Eclipse from URI, as new project.
 ## Part 1
 
 ### Console application for Dave's Taxis
-1) navigate to folder holding relevant jar file
-2) run the following command: java -jar technical_test_part1_DaveOnly.jar
-3) provide input
+1) run the following command: java -jar technical_test_part1_DaveOnly.jar
+2) provide input
 
 ### Console application with passengers and multiple suppliers
-1) navigate to folder holding relevant jar file
-2) run the following command: java -jar technical_test_part1.jar
-3) provide input
+1) run the following command: java -jar technical_test_part1.jar
+2) provide input
 
 
 
@@ -37,7 +38,7 @@ or
 2) run RestControllerTest
 
 ### Jar / Console
-1) run the following command from the containing folder: jar with java -jar technical_test_part2.jar
+1) run the following command from the containing folder: java -jar technical_test_part2.jar
 2) provide input through console
 3) check localhost:8080/ride
  
